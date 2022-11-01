@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Repositories\Contracts\UserRepositoryInterface;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -13,9 +13,9 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(UserRepositoryInterface $model)
     {
-        $userList = User::all();
+        $userList = $model->all();
         return Inertia::render('Home',['userList'=>$userList]);
     }
 
