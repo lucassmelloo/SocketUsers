@@ -7,19 +7,15 @@
                         <table class="min-w-full leading normal ">
                             <thead>
                                 <tr class="text-left">
-                                    <th>ID</th>
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Created at</th>
-                                    <th>Actions</th>
+                                    <th v-for="column in columns">{{column}}</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="text-left border-b-2" v-for="user in userList" :key="user.id">
-                                    <td class="p-1.5">{{user.id}}</td>
-                                    <td><div class="font-semibold text-left">{{user.name}}</div></td>
-                                    <td>{{user.email}}</td>
-                                    <td>{{user.created_at}}</td>
+                                <tr class="text-left border-b-2" v-for="object in objectList" :key="object.id">
+                                    <td class="p-1.5">{{object.id}}</td>
+                                    <td><div class="font-semibold text-left">{{object.name}}</div></td>
+                                    <td>{{object.email}}</td>
+                                    <td>{{object.created_at}}</td>
                                     <td></td>
                                 </tr>
                             </tbody>
@@ -33,7 +29,8 @@
 <script>
 export default {
     props: {
-        userList: []
+        columns: [],
+        objectList: []
     }
 }
 </script>

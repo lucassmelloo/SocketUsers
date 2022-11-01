@@ -12,7 +12,7 @@ import { Head } from '@inertiajs/inertia-vue3';
                 User List
             </h2>
         </template>
-        <UsersTableVue :userList="userList"></UsersTableVue>
+        <UsersTableVue :columns="columns" :objectList="userList"></UsersTableVue>
     </AuthenticatedLayout>
 </template>
 
@@ -23,7 +23,15 @@ export default {
     },
 
     data(){
-
+        return{
+            columns: [
+                'ID',
+                'Name',
+                'Email',
+                'Created at',
+                'Actions'
+            ]
+        }
     }
 }
 </script>
