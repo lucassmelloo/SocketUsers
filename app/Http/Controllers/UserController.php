@@ -15,7 +15,7 @@ class UserController extends Controller
      */
     public function index(UserRepositoryInterface $model)
     {
-        $userList = $model->all();
+        $userList = $model->actives();
         return Inertia::render('Home',['userList'=>$userList]);
     }
 
@@ -80,8 +80,16 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function inactivateUser(User $user)
+    {   
+        dd($user);
+        $user->is_active = 0;
+        $user->save();
+        return 'OK';
+    }
+
+    public function activateUser($id)
     {
-        //
+        
     }
 }

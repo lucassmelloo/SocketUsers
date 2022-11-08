@@ -26,6 +26,7 @@ export default {
         return{
             columns: [
                 'ID',
+                'Status',
                 'Name',
                 'Email',
                 'Created at',

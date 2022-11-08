@@ -36,4 +36,10 @@ Route::get('/home', [UserController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('home');
 
+
+Route::prefix('user')->group(function(){
+    Route::post('/inactivate/{id}', [UserController::class,'inactivateUser']);
+    Route::post('/activate/{id}', [UserController::class,'activateUser']);
+});
+
 require __DIR__.'/auth.php';
