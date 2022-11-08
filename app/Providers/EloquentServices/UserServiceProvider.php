@@ -3,7 +3,7 @@
 namespace App\Providers\EloquentServices;
 
 use Illuminate\Support\ServiceProvider;
-
+use App\Models\User;
 class UserServiceProvider extends ServiceProvider
 {
     /**
@@ -15,7 +15,7 @@ class UserServiceProvider extends ServiceProvider
     {
         $this->app->singleton(UserController::class);
     }
-
+    
     /**
      * Bootstrap services.
      *
@@ -24,5 +24,11 @@ class UserServiceProvider extends ServiceProvider
     public function boot()
     {
         //
+    }
+
+    public function inactivateUser(User $user)
+    {
+        $user->is_active = 0;
+        $user->save();
     }
 }

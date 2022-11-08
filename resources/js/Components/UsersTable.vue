@@ -66,11 +66,11 @@ export default {
     }, */
 
     methods: {
-        async inactiveUser($userId){
+        async inactiveUser(userId){
             try{
-                await axios.post('user/inactivate/' + $userId);
+                result = await axios.post('user/inactivate/' + userId);
             }catch(err){
-                console.log(err.message);
+                console.error(err.response.data); 
             }
         }
     },

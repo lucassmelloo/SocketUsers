@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Repositories\Contracts\UserRepositoryInterface;
+use App\Models\User;
+use App\Providers\EloquentServices\UserServiceProvider;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -15,7 +17,7 @@ class UserController extends Controller
      */
     public function index(UserRepositoryInterface $model)
     {
-        $userList = $model->actives();
+        $userList = $model->all();
         return Inertia::render('Home',['userList'=>$userList]);
     }
 
@@ -80,11 +82,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function inactivateUser(User $user)
+    public function inactivateUser(User $user, UserServiceProvider $userService)
     {   
-        dd($user);
-        $user->is_active = 0;
-        $user->save();
+        $userService->inactivateUser($user);
         return 'OK';
     }
 

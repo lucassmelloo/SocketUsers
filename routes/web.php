@@ -32,14 +32,10 @@ Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('conversations');
 
-Route::get('/home', [UserController::class, 'index'])
-    ->middleware(['auth', 'verified'])
-    ->name('home');
 
-
-Route::prefix('user')->group(function(){
-    Route::post('/inactivate/{id}', [UserController::class,'inactivateUser']);
-    Route::post('/activate/{id}', [UserController::class,'activateUser']);
+Route::controller(UserController::class)->group(function () {
+    Route::get('/home',  'index')->middleware(['auth', 'verified'])->name('home');
+    Route::post('user/inactivate/{user}', 'inactivateUser');
+    Route::post('user/activate/{id}','activateUser');
 });
-
 require __DIR__.'/auth.php';
