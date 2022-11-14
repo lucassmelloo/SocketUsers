@@ -4,16 +4,19 @@ namespace App\Providers\EloquentServices;
 
 use Illuminate\Support\ServiceProvider;
 use App\Models\User;
-class UserServiceProvider extends ServiceProvider
+use App\Providers\AppServiceProvider;
+use App\Repositories\Eloquent\UserRepository;
+
+class UserServiceProvider extends AppServiceProvider
 {
-    /**
-     * Register services.
-     *
-     * @return void
-     */
+
+    public function __contruct()
+    {
+    }
+
     public function register()
     {
-        $this->app->singleton(UserController::class);
+        $this->app->singleton(UserRepository::class);
     }
     
     /**

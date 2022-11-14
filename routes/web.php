@@ -34,8 +34,22 @@ Route::get('/dashboard', function () {
 
 
 Route::controller(UserController::class)->group(function () {
-    Route::get('/home',  'index')->middleware(['auth', 'verified'])->name('home');
-    Route::post('user/inactivate/{user}', 'inactivateUser');
-    Route::post('user/activate/{id}','activateUser');
+
+    Route::get('/users/filter',  'getUsers')
+        ->middleware(['auth', 'verified'])
+        ->name('users.filter');
+
+
+    Route::get('/users',  'index')
+        ->middleware(['auth', 'verified'])
+        ->name('users');
+
+    Route::post('user/inactivate/{user}', 'inactivateUser')
+        ->middleware(['auth', 'verified'])
+        ->name('user.inactivate');
+
+    Route::post('user/activate/{id}','activateUser')
+        ->middleware(['auth', 'verified'])
+        ->name('user.activate');
 });
 require __DIR__.'/auth.php';
