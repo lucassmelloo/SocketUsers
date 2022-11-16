@@ -50,7 +50,8 @@ class UserController extends Controller
             'email',
             'is_active'
         ]);
-        $repository->filterUsers($repositoryFilter);
+        return $repository->filterUsers($repositoryFilter);
+
     }
 
     public function inactivateUser(UserRepository $repository)

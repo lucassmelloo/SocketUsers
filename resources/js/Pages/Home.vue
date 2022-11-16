@@ -13,19 +13,24 @@ import FilterTable from '@/Components/FilterTable.vue';
                 User List
             </h2>
         </template>
-        <FilterTable>
-            <UsersTableVue :columns="columns" :objectList="userList"></UsersTableVue>
+        <FilterTable @atualizeUserList="atualizeUserList">
+            <UsersTableVue :columns="columns" :objectList="users"></UsersTableVue>
         </FilterTable>
     </AuthenticatedLayout>
 </template>
 
 <script>
 export default {
+
+    components: { FilterTable },
+
     props: {
         userList: {}
     },
+
     data() {
         return {
+            users: {},
             columns: [
                 "ID",
                 "Status",
@@ -36,7 +41,24 @@ export default {
             ]
         };
     },
-    components: { FilterTable }
+
+    methods: {
+
+        atualizeUserList(users){
+            this.users = users;
+        },
+
+        callUserPage(user){
+            
+        }
+        
+    },
+
+    mounted() {
+
+        this.atualizeUserList(this.userList);
+
+    },
 }
 </script>
 <style lang="">

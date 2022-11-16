@@ -51,5 +51,9 @@ Route::controller(UserController::class)->group(function () {
     Route::post('user/activate/{id}','activateUser')
         ->middleware(['auth', 'verified'])
         ->name('user.activate');
+
+    Route::post('user/{user?}', 'user')
+        ->middleware(['auth', 'verified'])
+        ->name('user');
 });
 require __DIR__.'/auth.php';

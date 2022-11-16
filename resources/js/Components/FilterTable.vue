@@ -5,7 +5,7 @@
                 <div class="lg:px-20">
                     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                         <div class="py-3">
-                            <form class="flex items-center pb-3">   
+                            <form class="flex items-center pb-3" action>   
                                 <label for="simple-search" class="sr-only">Search</label>
                                 <div class="relative w-full mx-2">
                                     <input v-model="filterName" type="text" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full" placeholder="Name" required>
@@ -22,7 +22,7 @@
                                     Search
                                 </button>
                                 <button type="button" class="text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2">
-                                    New
+                                    <strong>New</strong>
                                 </button>
                             </form>
                             <slot/>
@@ -34,27 +34,39 @@
     </div>
 </template>
 <script>
+import { Inertia } from '@inertiajs/inertia';
+import axios from 'axios';
+
 export default {
     
     data(){
         return {
             filterName: '',
             filterEmail: '',
-            filterStatus: ''
+            filterStatus: '',
+            userList: {}
         }
     },
     
     methods: {
         
         async searchUsers(){
+
             await axios.get('/users/filter',{
                 params: {
                     name: this.filterName,
                     email: this.filterEmail,
                     is_active: this.filterStatus 
                 }
-            });
+            }).then(
+                (response)=>{
+                    this.userList = response.data;
+                }
+            );
+            
+            this.$emit('atualizeUserList', this.userList);
         }
+        
         
     },
 }
