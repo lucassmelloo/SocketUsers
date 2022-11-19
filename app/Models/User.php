@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'is_active'
     ];
 
     /**
@@ -41,13 +42,10 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
         'created_at' => 'datetime:d/m/Y H:i',
-        'is_active'=> 'boolean'
     ];
 
-    // protected function isActive(): Attribute
-    // {
-    //     return Attribute::make(
-    //         get:
-    //     )
-    // }
+    protected function isActive()
+    {
+        
+    }
 }

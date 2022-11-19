@@ -47,5 +47,9 @@ Route::controller(UserController::class)->group(function () {
     Route::get('user/{user?}', 'show')
         ->middleware(['auth', 'verified'])
         ->name('user-page');
+
+    Route::post('user/store', 'store')
+        ->middleware(['auth', 'verified'])
+        ->name('user-store');
 });
 require __DIR__.'/auth.php';

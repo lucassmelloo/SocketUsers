@@ -29,19 +29,19 @@ class UserController extends Controller
 
     }
 
-    public function create()
-    {
-
-    }
-
-    public function store(Request $request)
-    {
-        //
-    }
-
     public function show(User $user)
     {
         return Inertia::render('UserPage',['incomingUser'=>$user]);
+    }
+
+    public function store(Request $request, UserRepository $repository)
+    {
+        $user = $repository->createOrEdit($request->all());
+        return $user;
+    }
+    public function create()
+    {
+
     }
 
     public function edit(Request $request, UserRepository $id)

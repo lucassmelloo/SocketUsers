@@ -26,6 +26,21 @@ class UserRepository extends AbstractRepository implements UserRepositoryInterfa
         return $this->users->where('id',$id)->first();
     }
 
+    public function createOrEdit(array $data)
+    {
+        $user = $this->findById(data_get($data, 'id'));
+ 
+        if ($user !== null) {
+            $user->update($data);
+            $user->save();
+        } else {
+            $user = new User();
+            $user->fill($data);
+            $user->save();
+        }
+        return $user;
+    }
+
     public function filterUsers(array $filters)
     {
         $filteredUsers = 
