@@ -44,16 +44,8 @@ Route::controller(UserController::class)->group(function () {
         ->middleware(['auth', 'verified'])
         ->name('users');
 
-    Route::post('user/inactivate/{user}', 'inactivateUser')
+    Route::get('user/{user?}', 'show')
         ->middleware(['auth', 'verified'])
-        ->name('user.inactivate');
-
-    Route::post('user/activate/{id}','activateUser')
-        ->middleware(['auth', 'verified'])
-        ->name('user.activate');
-
-    Route::post('user/{user?}', 'user')
-        ->middleware(['auth', 'verified'])
-        ->name('user');
+        ->name('user-page');
 });
 require __DIR__.'/auth.php';

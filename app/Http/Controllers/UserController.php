@@ -18,31 +18,6 @@ class UserController extends Controller
         return Inertia::render('Home',['userList'=>$userList]);
     }
 
-    public function create()
-    {
-
-    }
-
-    public function store(Request $request)
-    {
-        //
-    }
-
-    public function show($id)
-    {
-        //
-    }
-
-    public function edit($id)
-    {
-
-    }
-
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
     public function getUsers(Request $request, UserRepository $repository)
     {
         $repositoryFilter = $request->only([
@@ -54,15 +29,29 @@ class UserController extends Controller
 
     }
 
-    public function inactivateUser(UserRepository $repository)
-    {   
-        $repository->inactivateUser();
-        return 'OK';
+    public function create()
+    {
+
     }
 
-    public function activateUser(UserRepository $repository)
+    public function store(Request $request)
     {
-        $repository->activateUser();
-        return 'OK';
+        //
     }
+
+    public function show(User $user)
+    {
+        return Inertia::render('UserPage',['incomingUser'=>$user]);
+    }
+
+    public function edit(Request $request, UserRepository $id)
+    {
+
+    }
+
+    public function update(Request $request, $id)
+    {
+        //
+    }
+
 }

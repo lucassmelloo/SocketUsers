@@ -21,6 +21,11 @@ class UserRepository extends AbstractRepository implements UserRepositoryInterfa
         return $this->users->all();
     }
 
+    public function findById($id)
+    {
+        return $this->users->where('id',$id)->first();
+    }
+
     public function filterUsers(array $filters)
     {
         $filteredUsers = 
@@ -43,31 +48,6 @@ class UserRepository extends AbstractRepository implements UserRepositoryInterfa
                 ->get();
                 
         return response()->json($filteredUsers);
-    }
-
-    public function actives()
-    {
-        return $this->users->where('is_active',1)->get();
-    }
-
-    public function inactives()
-    {
-        return $this->users->where('is_active',0)->get();
-    }
-
-    public function inactivateUser()
-    {
-        $this->users->is_active = 0;
-        $this->users->save();
-    }
-
-    public function activateUser()
-    {
-        $this->users->is_active = 1;
-        $this->users->save();
-        // $user = $this->users->where('id',$id)->first();
-        // $user->is_active = 1;
-        // $user->save();
     }
 
 }

@@ -1,7 +1,6 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import UsersTableVue from '@/Components/UsersTable.vue';
-import { Head } from '@inertiajs/inertia-vue3';
 import FilterTable from '@/Components/FilterTable.vue';
 </script>
 
@@ -13,8 +12,14 @@ import FilterTable from '@/Components/FilterTable.vue';
                 User List
             </h2>
         </template>
-        <FilterTable @atualizeUserList="atualizeUserList">
-            <UsersTableVue :columns="columns" :objectList="users"></UsersTableVue>
+        <FilterTable 
+            @atualizeUserList="atualizeUserList" 
+            @callUserPage="callUserPage">
+            <UsersTableVue 
+                @callUserPage="callUserPage" 
+                :columns="columns" 
+                :objectList="users">
+            </UsersTableVue>
         </FilterTable>
     </AuthenticatedLayout>
 </template>
@@ -49,7 +54,7 @@ export default {
         },
 
         callUserPage(user){
-            
+            this.$inertia.visit(route('user-page', user), {method:'get'})
         }
         
     },
