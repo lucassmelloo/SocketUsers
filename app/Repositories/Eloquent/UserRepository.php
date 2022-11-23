@@ -41,27 +41,28 @@ class UserRepository extends AbstractRepository implements UserRepositoryInterfa
         return $user;
     }
 
-    public function filterUsers(array $filters)
+    public function filterUsers(?array $filters)
     {
+        //dd(data_get($filters,'is_active'),!isset($filters['is_active'] ));
         $filteredUsers = 
             $this->users
-                ->when($filters['name'], 
+                ->when(data_get($filters,'name'), 
                     function($builder) use ($filters) {
                         $builder->where('name','LIKE','%'.$filters['name'].'%');
                     }
                 )
-                ->when($filters['email'], 
+                ->when(data_get($filters,'email'), 
                     function($builder) use ($filters) {
                         $builder->where('email','LIKE','%'.$filters['email'].'%');
                     }
                 )
-                ->when(!is_null($filters['is_active']), 
+                ->when(!is_null(data_get($filters,'is_active')), 
                     function($builder) use ($filters) {
                         $builder->where('is_active', $filters['is_active']);
                     }
                 )
-                ->get();
-                
+                ->paginate(10);
+            dd($filteredUsers);
         return response()->json($filteredUsers);
     }
 

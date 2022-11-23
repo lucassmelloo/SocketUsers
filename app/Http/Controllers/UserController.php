@@ -14,8 +14,8 @@ class UserController extends Controller
     
     public function index(UserRepository $repository)
     {
-        $userList = $repository->all();
-        return Inertia::render('Home',['userList'=>$userList]);
+        $userList = $repository->filterUsers([]);
+        return Inertia::render('Home',['userList'=>$userList])->with('message','Tudo certo na bahia');
     }
 
     public function getUsers(Request $request, UserRepository $repository)
@@ -37,7 +37,7 @@ class UserController extends Controller
     public function store(Request $request, UserRepository $repository)
     {
         $user = $repository->createOrEdit($request->all());
-        return $user;
+        return redirect()->route('user-page',[$user->id])->with('message',"Success to update {$user->name} register");
     }
     public function create()
     {
